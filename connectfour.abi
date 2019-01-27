@@ -1,0 +1,266 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Oct 21 01:51:04 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "balance",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "cleartables",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "deloldgames",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "creategame",
+            "base": "",
+            "fields": [
+                {
+                    "name": "player1",
+                    "type": "name"
+                },
+                {
+                    "name": "player2",
+                    "type": "name"
+                },
+                {
+                    "name": "buyIn",
+                    "type": "asset"
+                },
+                {
+                    "name": "isPublic",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "dropdisc",
+            "base": "",
+            "fields": [
+                {
+                    "name": "player",
+                    "type": "name"
+                },
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                },
+                {
+                    "name": "columnIndex",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "game",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                },
+                {
+                    "name": "isPublic",
+                    "type": "bool"
+                },
+                {
+                    "name": "board",
+                    "type": "boardVector[]"
+                },
+                {
+                    "name": "discsDropped",
+                    "type": "uint8"
+                },
+                {
+                    "name": "player1",
+                    "type": "name"
+                },
+                {
+                    "name": "player2",
+                    "type": "name"
+                },
+                {
+                    "name": "winner",
+                    "type": "name"
+                },
+                {
+                    "name": "buyIn",
+                    "type": "asset"
+                },
+                {
+                    "name": "lastPlayer",
+                    "type": "name"
+                },
+                {
+                    "name": "lastMove",
+                    "type": "uint32"
+                },
+                {
+                    "name": "startTime",
+                    "type": "uint32"
+                },
+                {
+                    "name": "finishTime",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "joingame",
+            "base": "",
+            "fields": [
+                {
+                    "name": "player2",
+                    "type": "name"
+                },
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "checkwin",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "cancelgame",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "forfeitgame",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                },
+                {
+                    "name": "player",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "claimtimeout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "forcefinish",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        }
+    ],
+    "types": [{
+       "new_type_name": "boardVector",
+       "type": "uint8[]"
+    }],
+    "actions": [
+        {
+            "name": "cleartables",
+            "type": "cleartables",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "deloldgames",
+            "type": "deloldgames",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "creategame",
+            "type": "creategame",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "joingame",
+            "type": "joingame",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "dropdisc",
+            "type": "dropdisc",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "checkwin",
+            "type": "checkwin",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cancelgame",
+            "type": "cancelgame",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "forfeitgame",
+            "type": "forfeitgame",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "claimtimeout",
+            "type": "claimtimeout",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "forcefinish",
+            "type": "forcefinish",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "games",
+            "type": "game",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
