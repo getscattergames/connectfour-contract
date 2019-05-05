@@ -1,6 +1,7 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Oct 21 01:51:04 2018",
-    "version": "eosio::abi/1.0",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.1",
+    "types": [],
     "structs": [
         {
             "name": "account",
@@ -17,12 +18,37 @@
             ]
         },
         {
-            "name": "cleartables",
+            "name": "cancelgame",
             "base": "",
-            "fields": []
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
         },
         {
-            "name": "deloldgames",
+            "name": "checkwin",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "claimtimeout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "cleartables",
             "base": "",
             "fields": []
         },
@@ -49,6 +75,11 @@
             ]
         },
         {
+            "name": "deloldgames",
+            "base": "",
+            "fields": []
+        },
+        {
             "name": "dropdisc",
             "base": "",
             "fields": [
@@ -67,6 +98,30 @@
             ]
         },
         {
+            "name": "forcefinish",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "forfeitgame",
+            "base": "",
+            "fields": [
+                {
+                    "name": "gameId",
+                    "type": "uint64"
+                },
+                {
+                    "name": "player",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "game",
             "base": "",
             "fields": [
@@ -80,7 +135,7 @@
                 },
                 {
                     "name": "board",
-                    "type": "boardVector[]"
+                    "type": "uint8[][]"
                 },
                 {
                     "name": "discsDropped",
@@ -96,6 +151,10 @@
                 },
                 {
                     "name": "winner",
+                    "type": "name"
+                },
+                {
+                    "name": "referral",
                     "type": "name"
                 },
                 {
@@ -131,92 +190,18 @@
                 {
                     "name": "gameId",
                     "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "checkwin",
-            "base": "",
-            "fields": [
-                {
-                    "name": "gameId",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "cancelgame",
-            "base": "",
-            "fields": [
-                {
-                    "name": "gameId",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "forfeitgame",
-            "base": "",
-            "fields": [
-                {
-                    "name": "gameId",
-                    "type": "uint64"
                 },
                 {
-                    "name": "player",
+                    "name": "referral",
                     "type": "name"
-                }
-            ]
-        },
-        {
-            "name": "claimtimeout",
-            "base": "",
-            "fields": [
-                {
-                    "name": "gameId",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "forcefinish",
-            "base": "",
-            "fields": [
-                {
-                    "name": "gameId",
-                    "type": "uint64"
                 }
             ]
         }
     ],
-    "types": [{
-       "new_type_name": "boardVector",
-       "type": "uint8[]"
-    }],
     "actions": [
         {
-            "name": "cleartables",
-            "type": "cleartables",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "deloldgames",
-            "type": "deloldgames",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "creategame",
-            "type": "creategame",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "joingame",
-            "type": "joingame",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "dropdisc",
-            "type": "dropdisc",
+            "name": "cancelgame",
+            "type": "cancelgame",
             "ricardian_contract": ""
         },
         {
@@ -225,8 +210,33 @@
             "ricardian_contract": ""
         },
         {
-            "name": "cancelgame",
-            "type": "cancelgame",
+            "name": "claimtimeout",
+            "type": "claimtimeout",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cleartables",
+            "type": "cleartables",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "creategame",
+            "type": "creategame",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "deloldgames",
+            "type": "deloldgames",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "dropdisc",
+            "type": "dropdisc",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "forcefinish",
+            "type": "forcefinish",
             "ricardian_contract": ""
         },
         {
@@ -235,13 +245,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "claimtimeout",
-            "type": "claimtimeout",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "forcefinish",
-            "type": "forcefinish",
+            "name": "joingame",
+            "type": "joingame",
             "ricardian_contract": ""
         }
     ],
@@ -262,5 +267,5 @@
         }
     ],
     "ricardian_clauses": [],
-    "abi_extensions": []
+    "variants": []
 }

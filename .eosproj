@@ -1,0 +1,19 @@
+{
+  "main": "connectfours.cpp",
+  "contract": "connectfours",
+  "include": "./",
+  "cdt": "",
+  "output": "",
+  "scripts": {
+    "build": ""
+  },
+  "deploy": {
+    "mainnet": "",
+    "kylin": "",
+    "jungle": "",
+    "local": ""
+  },
+  "test": {
+    "npmClient": ""
+  }
+}

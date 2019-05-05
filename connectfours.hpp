@@ -1,6 +1,7 @@
 #include "config.hpp"
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
+#include <eosio/eosio.hpp>
+#include <eosio/asset.hpp>
+#include <eosio/transaction.hpp>
 
 #include <string>
 #include <vector>
@@ -8,21 +9,18 @@
 using namespace eosio;
 using namespace std;
 
-struct transfer_args {
-    name  from;
-    name  to;
-    asset         quantity;
-    string        memo;
-};
+uint32_t now() {
+  const static time_point_sec cts{ current_time_point() };
+  return cts.utc_seconds;
+}
 
-
-CONTRACT connectfour : contract {
-    public:
-
-        connectfour( name self, name code,  datastream<const char*> ds )
-                   : contract(self, code, ds),
-                     games(self, self.value),
-                     accounts(self, self.value) {}
+CONTRACT connectfours: public contract {
+  public:
+    using contract::contract;
+    connectfours(name receiver, name code, datastream<const char*> ds)
+      :contract(receiver, code, ds),
+        games(_self, _self.value),
+        accounts(_self, _self.value) {}
 
         template <typename T>
         void cleanTable(){
@@ -34,23 +32,24 @@ CONTRACT connectfour : contract {
         }
 
         ACTION creategame( const name player1,
-                         const name player2,
-                         const asset buyIn,
-                         const bool isPublic );
+                           const name player2,
+                           const asset buyIn,
+                           const bool isPublic );
 
         ACTION joingame( const name player2,
-                       const uint64_t gameId );
+                         const uint64_t gameId,
+                         const name referral );
 
         ACTION dropdisc( const name player,
-                       const uint64_t gameId,
-                       const uint8_t columnIndex );
+                         const uint64_t gameId,
+                         const uint8_t columnIndex );
 
         ACTION checkwin( const uint64_t gameId );
 
         ACTION cancelgame( const uint64_t gameId );
 
         ACTION forfeitgame( const uint64_t gameId,
-                          const name player );
+                            const name player );
 
         ACTION claimtimeout( const uint64_t gameId );
 
@@ -60,7 +59,13 @@ CONTRACT connectfour : contract {
 
         ACTION deloldgames();
 
-        void transfer( const name& from, const name& to, const asset& quantity, string& memo );
+        [[eosio::on_notify("eosio.token::transfer")]]
+        void deposit( name        from,
+                      name        to,
+                      asset       quantity,
+                      const std::string& memo );
+                      
+        using transfer_action = action_wrapper<"transfer"_n, &connectfours::deposit>;
 
 private:
         uint8_t _checkwin( const vector<vector<uint8_t>> board );
@@ -74,7 +79,7 @@ private:
                      const asset   quantity,
                      const string  memo );
 
-        struct [[eosio::table, eosio::contract("connectfour")]] game {
+        TABLE game {
             uint64_t       gameId;
             bool           isPublic;
             vector<vector<uint8_t>>  board;
@@ -83,15 +88,17 @@ private:
             name           player1;
             name           player2;
             name           winner;
+            name           referral;
 
             asset          buyIn;
             asset singlePayout () const { return asset{static_cast<int64_t>(buyIn.amount * WINNER_CUT), DEFAULT_SYMBOL}; };
             asset doublePayout () const { return singlePayout() * 2; };
+            asset refPayout () const { return asset{static_cast<int64_t>(buyIn.amount * REF_CUT), DEFAULT_SYMBOL}; };
 
             name           lastPlayer;
             name nextPlayer () const { return lastPlayer == player2 ? player1 : player2; };
 
-            uint32_t       lastMove;
+            uint32_t lastMove;
             bool timedOut () const { return now() > lastMove + DAY; };
 
             uint32_t       startTime;
@@ -106,7 +113,7 @@ private:
             uint64_t get_finish_time()const { return finishTime; } // 5
         };
 
-        struct [[eosio::table, eosio::contract("connectfour")]] account {
+        TABLE account {
             name         owner;
             asset        balance = asset{0, DEFAULT_SYMBOL};
 
